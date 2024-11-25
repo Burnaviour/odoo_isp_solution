@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View isp.customer.configuration View Tree -->
+    <record id="view_isp_customer_configuration_tree" model="ir.ui.view">
+        <field name="name">view.isp.customer.configuration.tree</field>
+        <field name="model">isp.customer.configuration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="customer_id" />
+                <field name="ip_address" />
+                <field name="mac_address" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- View isp.customer.configuration form -->
+    <record id="view_isp_customer_configuration_form" model="ir.ui.view">
+        <field name="name">view.isp.customer.configuration.form</field>
+        <field name="model">isp.customer.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Isp Customer Configuration">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,suspended" />
+                    <button name="set_to_draft" string="Set to Draft" type="object" class="btn btn-primary"
+                        invisible="state not in ('active', 'suspended', 'cancelled')" confirm="Are you sure?" />
+                    <button name="set_to_active" string="Set to Active" type="object" class="btn btn-primary"
+                        invisible="state not in ('draft', 'suspended', 'cancelled')" confirm="Are you sure?" />
+                    <button name="set_to_suspended" string="Set to Suspended" type="object" class="btn btn-primary"
+                        invisible="state != 'active'" confirm="Are you sure?" />
+                    <button name="set_to_cancelled" string="Set to Cancelled" type="object" class="btn btn-primary"
+                        invisible="state not in ('draft', 'active', 'suspended')" confirm="Are you sure?" />
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="customer_id" />
+                        <h1>
+                            <field name="customer_id" placeholder="customer..." />
+                        </h1>
+                    </div>
+
+                    <group name="Customer Details">
+                        <field name="subscription_id" />
+                        <field name="subscription_state" widget="badge" />
+                        <field name="customer_id" />
+                    </group>
+                    <group name="Network Configuration" string="string">
+                        <field name="vlan_ids"
+                            widget="many2many_tags"
+                        />
+                        <field name="ip_address" />
+                        <field name="mac_address" />
+                    </group>
+                </sheet>
+
+
+            </form>
+        </field>
+    </record>
+
+    <!-- View isp.customer.configuration search -->
+    <record id="view_isp_customer_configuration_search" model="ir.ui.view">
+        <field name="name">view.isp.customer.configuration.search</field>
+        <field name="model">isp.customer.configuration</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Customer" name="customer_id" domain="[]" context="{'group_by':'customer_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action isp.customer.configuration -->
+    <record id="action_isp_customer_configuration" model="ir.actions.act_window">
+        <field name="name">Isp Customer Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">isp.customer.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Isp Customer Configuration.
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_isp_project_isp_project,isp_project.isp_project,model_isp_project_isp_project,base.group_user,1,1,1,1
+access_isp_customer_manager,isp_customer_manager,model_isp_customer_configuration,base.group_user,1,1,1,1
+access_isp_vlans_manager,isp_vlans_manager,model_isp_vlans,,1,1,1,1

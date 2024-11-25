@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- View isp.vlans View Tree -->
+    <record id="view_isp_vlans_tree" model="ir.ui.view">
+        <field name="name">view.isp.vlans.tree</field>
+        <field name="model">isp.vlans</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vlans" string="Virtual LAN" />
+
+                <field name="order_ids" widget="many2many_tags" context="{'rec_unique_order_display':1}" readonly="1" />
+                <field name="lead_ids" widget="many2many_tags" readonly="1" />
+                <field name="partner_ids" widget="many2many_tags" readonly="1" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- View isp.vlans form -->
+    <record id="view_isp_vlans_form" model="ir.ui.view">
+        <field name="name">view.isp.vlans.form</field>
+        <field name="model">isp.vlans</field>
+        <field name="arch" type="xml">
+            <form string="Vlans">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_leads"
+                            icon="fa-pencil-square-o" string="Leads">
+                            <field string="Leads" name="lead_count" widget="statinfo" />
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_order_ids" icon="fa-usd" string="Sale Orders">
+                            <field string="Sale Orders" name="order_count" widget="statinfo" />
+                        </button>
+                        <button class="oe_stat_button" type="object" name="open_partner_ids" icon="fa-user" string="Customer">
+                            <field string="Customers" name="partner_count" widget="statinfo" />
+                        </button>
+                    </div>
+                    <group>
+                        <field name="vlans" string="Virtual LAN" />
+                        <!-- <field name='assigned' string="Assigned" readonly="1" /> -->
+                        <field name="order_ids" widget="many2many_tags" context="{'rec_unique_order_display':1}" readonly="1" />
+                        <field name="lead_ids" widget="many2many_tags" readonly="1" />
+                        <field name="partner_ids" widget="many2many_tags" readonly="1" />
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="activity_ids" />
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- View isp.vlans search -->
+    <!-- <record id="view_isp_vlans_search" model="ir.ui.view">
+        <field name="name">view.isp.vlans.search</field>
+        <field name="model">isp.vlans</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}" />
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <!-- Action isp.vlans -->
+    <record id="action_isp_vlans" model="ir.actions.act_window">
+        <field name="name">Isp Vlans</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">isp.vlans</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Isp Vlans.
+            </p>
+        </field>
+    </record>
+
+</odoo>
