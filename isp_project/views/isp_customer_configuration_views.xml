@@ -24,34 +24,66 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,active,suspended" />
                     <button name="set_to_draft" string="Set to Draft" type="object" class="btn btn-primary"
                         invisible="state not in ('active', 'suspended', 'cancelled')" confirm="Are you sure?" />
-                    <button name="set_to_active" string="Set to Active" type="object" class="btn btn-primary"
+                    <button name="set_to_active" string="Set to Active" type="object" class="btn btn-success"
                         invisible="state not in ('draft', 'suspended', 'cancelled')" confirm="Are you sure?" />
-                    <button name="set_to_suspended" string="Set to Suspended" type="object" class="btn btn-primary"
+                    <button name="set_to_suspended" string="Set to Suspended" type="object" class="btn btn-danger"
                         invisible="state != 'active'" confirm="Are you sure?" />
-                    <button name="set_to_cancelled" string="Set to Cancelled" type="object" class="btn btn-primary"
+                    <button name="set_to_cancelled" string="Set to Cancelled" type="object" class="btn btn-warning"
                         invisible="state not in ('draft', 'active', 'suspended')" confirm="Are you sure?" />
                 </header>
 
                 <sheet>
                     <div class="oe_title">
-                        <label for="customer_id" />
+                        <label for="name" />
                         <h1>
-                            <field name="customer_id" placeholder="customer..." />
+                            <field name="name" />
                         </h1>
                     </div>
+                    <group>
+                        <group name="customer_details" string="Customer Details">
+                            <field name="customer_id" />
+                            <field name="subscription_id" />
+                            <field name="subscription_state" widget="badge"
+                                decoration-danger="subscription_state == 'Closed'"
+                                decoration-success="subscription_state == 'In progress'"
+                            />
+                            <field name="customer_id" />
+                        </group>
 
-                    <group name="Customer Details">
-                        <field name="subscription_id" />
-                        <field name="subscription_state" widget="badge" />
-                        <field name="customer_id" />
                     </group>
-                    <group name="Network Configuration" string="string">
-                        <field name="vlan_ids"
-                            widget="many2many_tags"
-                        />
-                        <field name="ip_address" />
-                        <field name="mac_address" />
-                    </group>
+
+                    <notebook>
+                        <!-- NOC details -->
+                        <page string="Network Configuration Details">
+                            <group name="noc_survey" string="NOC Survey">
+
+                                <!-- <field name="noc_feasibility" widget="radio" options="{'horizontal': True}" /> -->
+                                <field name="ip_method" string="Protocol" widget="radio" options="{'horizontal': True}" readonly="state == 'active'" />
+                                <field name="ip_protocol" string="Method" widget="radio"
+                                    options="{'horizontal': True}" readonly="state == 'active'" />
+
+                            </group>
+                            <!--  invisible="not secondary_dns_lines_ids" -->
+                            <group name="ip_data" string="IP Addresses Data"
+                            >
+                                <div name="dns_line_ids" colspan="2">
+                                    <field name="dns_line_ids"
+                                        string="IP Address" mode="tree" readonly="state == 'active'">
+                                        <tree editable="bottom">
+                                            <field name="ipaddress" />
+                                            <field name="pre_fix" />
+                                            <field name="gateway" />
+                                            <field name="address_category" width="10%" />
+                                            <field name="vlan_ids" widget="many2many_tags" />
+                                            <field name="customer_conf_id" column_invisible="True" />
+                                        </tree>
+                                    </field>
+                                </div>
+                            </group>
+                        </page>
+
+
+                    </notebook>
                 </sheet>
 
 
@@ -74,7 +106,7 @@
 
     <!-- Action isp.customer.configuration -->
     <record id="action_isp_customer_configuration" model="ir.actions.act_window">
-        <field name="name">Isp Customer Configuration</field>
+        <field name="name">Customer Configuration</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">isp.customer.configuration</field>
         <field name="view_mode">tree,form</field>

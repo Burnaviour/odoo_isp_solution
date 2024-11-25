@@ -8,9 +8,11 @@
     "depends": ["base", "mail", "account", "subscription_oca", "crm"],
     "data": [
         "security/ir.model.access.csv",
+        "data/sequence.xml",
         "views/isp_customer_configuration_views.xml",
         "views/isp_vlans_views.xml",
         "views/views.xml",
+        # "views/network_conf_lines_views.xml"
     ],
     "installable": True,
     "application": True,

@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_isp_customer_manager,isp_customer_manager,model_isp_customer_configuration,base.group_user,1,1,1,1
-access_isp_vlans_manager,isp_vlans_manager,model_isp_vlans,,1,1,1,1
+access_isp_vlans_manager,isp_vlans_manager,model_isp_vlans,base.group_user,1,1,1,1
+access_network_conf_lines_manager,network_conf_lines_manager,model_network_conf_lines,base.group_user,1,1,1,1
