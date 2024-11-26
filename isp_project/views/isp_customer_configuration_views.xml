@@ -47,7 +47,11 @@
                                 decoration-danger="subscription_state == 'Closed'"
                                 decoration-success="subscription_state == 'In progress'"
                             />
-                        
+
+                        </group>
+                        <group name="picking" string="Hardware Transfer Details">
+                            <field name="customer_location_id" />
+                            <field name="customer_picking_id" />
                         </group>
 
                     </group>
@@ -86,7 +90,11 @@
                     </notebook>
                 </sheet>
 
-
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
             </form>
         </field>
     </record>

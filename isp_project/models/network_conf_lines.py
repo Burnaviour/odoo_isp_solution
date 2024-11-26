@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class NetworkConfLines(models.Model):
     _name = 'network.conf.lines'
-    _description = 'NetworkConfLines'
+    _description = 'Network Conf Lines'
 
     customer_conf_id = fields.Many2one("isp.customer.configuration", string="Customer Configuration")
     ipaddress = fields.Char(string="IP Address")

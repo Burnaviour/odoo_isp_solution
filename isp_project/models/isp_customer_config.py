@@ -4,6 +4,7 @@ from odoo import models, fields, api, _
 class ISPCustomerConfiguration(models.Model):
     _name = "isp.customer.configuration"
     _description = "ISP Customer Network Configuration"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
         string="Customer Reference", required=True, copy=False, readonly=True, index=True, default=lambda self: _("New")
@@ -28,6 +29,8 @@ class ISPCustomerConfiguration(models.Model):
     # vlan_ids = fields.Many2many("isp.vlans", string="VLANs")
     ip_method = fields.Selection([("dhcp", "DHCP"), ("static", "STATIC")], tracking=True)
     ip_protocol = fields.Selection([("ipv4", "IPV4"), ("ipv6", "IPV6")], tracking=True)
+    customer_picking_id = fields.Many2one("stock.picking", string="Customer Picking")
+    customer_location_id = fields.Many2one("stock.location", string="Customer Location")
 
     def set_to_draft(self):
         self.state = "draft"
@@ -36,6 +39,7 @@ class ISPCustomerConfiguration(models.Model):
         self.state = "active"
 
     def set_to_suspended(self):
+
         self.state = "suspended"
 
     def set_to_cancelled(self):
